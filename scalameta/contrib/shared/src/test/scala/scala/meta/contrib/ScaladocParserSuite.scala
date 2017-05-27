@@ -172,6 +172,28 @@ class ScaladocParserSuite extends FunSuite {
     assert(result === expectation)
   }
 
+
+  test("subsubheadings") {
+    val headingBody = "title"
+
+    val result: Option[Seq[DocToken]] =
+      parseString(
+        s"""
+        /**
+          * ===$subHeadingBody===
+          */
+         case class foo(bar : String)
+         """
+      )
+    val expectation = Option(
+      Seq(
+        DocToken(SubHeading, headingBody)
+      )
+    )
+
+    assert(result === expectation)
+  }
+
   test("label parsing/merging") {
     val testStringToMerge = "Test DocText"
     val scaladoc: String =
